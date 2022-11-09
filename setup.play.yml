@@ -1,0 +1,41 @@
+# Notes: 
+# dc = docker-compose
+
+#- hosts: "{{ deploy_env }}"
+- hosts: localhost
+  #remote_user: "{{ user_loging }}"
+  remote_user: nikola
+  become_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: true
+  vars_prompt:
+    # - name: deploy_env
+    #   prompt: "Which Environment should we target?(dev,prod)"
+    #   private: no
+    #   default: "dev"
+    # - name: user_loging
+    #   prompt: "Which user should i use?"
+    #   private: no
+    #   default: "nikola"
+  vars_files:
+    - default.yml
+  # roles:
+  #   - "" 
+  handlers:
+  pre_tasks:
+    - ansible.builtin.include_tasks : tasks/prerequsites.play.yml
+    #- source parse-cli.sh
+    #- TODO: source detect-platform.sh 
+    #- eh? source dc-detect-version.sh
+    #- eh? source error-handling.sh
+    #- wat? trap_with_arg cleanup ERR INT TERM EXIT
+    #- source check-latest-commit.sh
+    - ansible.builtin.include_tasks : tasks/check-latest-commit.play.yml
+
+    #- source check-minimum-requirements.sh
+
+     
+  tasks:
+    #- include_tasks: 
+  post_tasks:

@@ -1,0 +1,9 @@
+---
+- name: Check Ram
+  ansible.builtin.debug:
+    msg: " Current Memory available {{ ansible_memtotal_mb }}MB"
+  failed_when: prerequistes.MIN_RAM_HARD > ansible_memtotal_mb
+- name: Check Cpu
+  ansible.builtin.debug:
+    msg: " Current vCpus available {{ ansible_processor_vcpus }}"
+  failed_when: prerequistes.MIN_CPU_HARD > ansible_processor_vcpus
