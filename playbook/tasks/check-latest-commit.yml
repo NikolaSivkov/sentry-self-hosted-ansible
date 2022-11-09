@@ -1,14 +1,15 @@
-- name: Get Git status
+---
+- name: Get Git status # noqa command-instead-of-module
   ansible.builtin.command:
     cmd: git status -s
   register: git_status
-  when: building.SKIP_COMMIT_CHECK == false
+  when: is not building.SKIP_COMMIT_CHECK
 - name: Fail if Git not up to date
   ansible.builtin.fail:
-    msg: "Seems like you are not using the latest commit from the self-hosted repository. Please pull the latest changes and try again, or suppress this check with  the building.SKIP_COMMIT_CHECK variable set to true"
+    msg: "Seems like you are not using the latest commit from the self-hosted repository. Please  pull the latest changes and try again, or suppress this check with  the building.  SKIP_COMMIT_CHECK variable set to true"
   failed_when: git_status | length > 0
-  when: building.SKIP_COMMIT_CHECK == false
-  
+  when: is not building.SKIP_COMMIT_CHECK
+
 - name: Print git repo status
   ansible.builtin.debug:
     var: git_status
