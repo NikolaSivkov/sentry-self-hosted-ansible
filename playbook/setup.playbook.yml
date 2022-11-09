@@ -1,7 +1,4 @@
-# notes
-# dc = docker-compose
-
-# - hosts: "{{ deploy_env }}"
+---
 - name: Setup Ansible
   hosts: localhost
   # remote_user: "{{ user_loging }}"
@@ -10,7 +7,7 @@
   become: true
   become_method: sudo
   gather_facts: true
-  vars_prompt:
+  vars_prompt: []
     # - name: deploy_env
     #   prompt: "Which Environment should we target?(dev,prod)"
     #   private: no
@@ -23,10 +20,10 @@
     - default.yml
   # roles:
   #   - ""
-  handlers:
+  handlers: []
   pre_tasks:
     - name: Execute prerequsites
-      ansible.builtin.include_tasks: tasks/prerequsites.play.yml
+      ansible.builtin.include_tasks: tasks/prerequisites.yml
     # - source parse-cli.sh
     # - TODO: source detect-platform.sh
     # - eh? source dc-detect-version.sh
@@ -34,10 +31,10 @@
     # - wat? trap_with_arg cleanup ERR INT TERM EXIT
     # - source check-latest-commit.sh
     - name: Execute check-latest-commit
-      ansible.builtin.include_tasks: tasks/check-latest-commit.play.yml
+      ansible.builtin.include_tasks: tasks/check-latest-commit.yml
 
     # - source check-minimum-requirements.sh
 
-  tasks:
+  tasks: []
     # - include_tasks:
-  post_tasks:
+  post_tasks: []

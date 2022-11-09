@@ -91,9 +91,9 @@ offline: false
 # List of additional kind:pattern to be added at the top of the default
 # match list, first match determines the file kind.
 kinds:
-  - playbook: "**/playbook/*.{yml,yaml}"
+  - playbook: "**/*.play.yml"
   # - galaxy: "**/folder/galaxy.yml"
   - tasks: "**/tasks/*.yml"
   - vars: "**/vars/*.yml"
   # - meta: "**/meta/main.yml"
-  - yaml: "**/*.yaml-too"
+  # - yaml: "**/*.yaml-too"
