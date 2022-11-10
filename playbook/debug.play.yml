@@ -26,17 +26,18 @@
   #   - ""
   handlers: []
   pre_tasks:
-    - name: Execute prerequisites
-      ansible.builtin.include_tasks: tasks/prerequisites.yml
+    # - name: Execute prerequisites
+    #   ansible.builtin.include_tasks: tasks/prerequisites.yml
     # - source parse-cli.sh
     # - TODO: source detect-platform.sh
     # - eh? source dc-detect-version.sh
     # - eh? source error-handling.sh
     # - wat? trap_with_arg cleanup ERR INT TERM EXIT
     # - source check-latest-commit.sh
-    - name: Execute check-latest-commit
-      ansible.builtin.include_tasks: tasks/check-latest-commit.yml
-
+    # - name: Execute check-latest-commit
+    #   ansible.builtin.include_tasks: tasks/check-latest-commit.yml
+    - name: Docker
+      ansible.builtin.include_tasks: tasks/docker.yml
     # - source check-minimum-requirements.sh
 
   tasks: []

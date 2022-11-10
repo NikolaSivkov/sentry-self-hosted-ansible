@@ -3,8 +3,10 @@ roles:
   # Install a role from Ansible Galaxy.
   - name: geerlingguy.docker
     version: 6.0.1
-  - name: caddy_ansible.caddy_ansible
-    version: v3.1.0
+  - name: geerlingguy.pip
+    version: 2.2.0
+  # - name: caddy_ansible.caddy_ansible
+  #   version: v3.1.0
 
 collections:
   # Install a collection from Ansible Galaxy.

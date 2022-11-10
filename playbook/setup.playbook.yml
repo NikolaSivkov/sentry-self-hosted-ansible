@@ -21,6 +21,16 @@
   # roles:
   #   - ""
   handlers: []
+  roles:
+    - role: geerlingguy.pip
+      vars:
+        pip_install_packages:
+          - name: docker
+    - role: geerlingguy.docker
+      vars:
+        docker_compose_version: "v2.12.2"
+
+
   pre_tasks:
     - name: Execute prerequsites
       ansible.builtin.include_tasks: tasks/prerequisites.yml
