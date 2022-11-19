@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include nikolasivkov.sentry_self_hosted_ansible"
+      ansible.builtin.include_role:
+        name: "nikolasivkov.sentry_self_hosted_ansible"

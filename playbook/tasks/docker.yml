@@ -16,9 +16,8 @@
 - name: Check CPUs in Docker
   ansible.builtin.assert:
     msg: "{{ docker_info.host_info.NCPU }} vCpus are not enough, you need minimum '{{ prerequistes.MIN_CPU_HARD }}' please add more vCpus to docker"
-    that: (docker_info.host_info.NCPU|int) > prerequistes.MIN_CPU_HARD
+    that: "{{ (docker_info.host_info.NCPU | int) > prerequistes.MIN_CPU_HARD }}"
     quiet: true
-  changed_when: false
 
 - name: Check Is KVM CPU
   ansible.builtin.command:
@@ -31,11 +30,12 @@
   ansible.builtin.set_fact:
     docker_ram: "{{ ((docker_info.host_info.MemTotal / 1024 | pow(2)) | round | int) }}"
     is_kvm_cpu: "{{ (is_kvm_cpu_check.stdout | int > 0) | default(false) }}"
+    docker_platform: "{{ docker_info.host_info.Architecture }}"
 
 - name: Check Docker Ram
   ansible.builtin.assert:
     msg: "Current RAM available to docker is {{ docker_ram }} MB, minimum required is {{ prerequistes.MIN_RAM_HARD | int }} MB"
-    that: (docker_ram | int) is gt (prerequistes.MIN_RAM_HARD | int)
+    that: "{{ (docker_ram | int) is gt(prerequistes.MIN_RAM_HARD | int) }}"
     quiet: true
 
 - name: Check SSE4.2

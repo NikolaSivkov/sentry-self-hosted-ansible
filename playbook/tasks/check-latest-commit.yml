@@ -3,17 +3,20 @@
   ansible.builtin.command:
     cmd: git status -s
   register: git_status
-  when: is not building.SKIP_COMMIT_CHECK
+  when: not building.SKIP_COMMIT_CHECK
+
 - name: Fail if Git not up to date
   ansible.builtin.fail:
     msg: "Seems like you are not using the latest commit from the self-hosted repository. Please  pull the latest changes and try again, or suppress this check with  the building.  SKIP_COMMIT_CHECK variable set to true"
   failed_when: git_status | length > 0
-  when: is not building.SKIP_COMMIT_CHECK
+  when: not building.SKIP_COMMIT_CHECK
 
 - name: Print git repo status
   ansible.builtin.debug:
     var: git_status
-  when: git_status.length > 0
+  when:
+    - not building.SKIP_COMMIT_CHECK
+    - git_status.length > 0
 
 ## Tbh, this should be the default..
 # - name: Update repo unless skip is specified

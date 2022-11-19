@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - nikolasivkov.sentry_self_hosted_ansible

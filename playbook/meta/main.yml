@@ -1,7 +1,11 @@
 ---
-dependencies: []
+dependencies:
+  - role: geerlingguy.pip
+  - role: geerlingguy.docker
 
 galaxy_info:
+  role_name: sentry_self_hosted_ansible
+  namespace: nikolasivkov
   author: Nikola Sivkov<nikola@dotfinity.eu>
   description: There was an attempt at ansible
   license: MIT
@@ -16,14 +20,14 @@ galaxy_info:
         - bionic
         - focal
         - jammy
-  standalone: false # <-- this is a standalone role (not part of a collection)
+  standalone: true # <-- this is a standalone role (not part of a collection)
 
-galaxy_tags:
-  - APM
-  - system
-  - sentry
-  - containers
-  - docker
-  - monitoring
-  - performance
-  - server
+# galaxy_tags:
+#   - APM
+#   - system
+#   - sentry
+#   - containers
+#   - docker
+#   - monitoring
+#   - performance
+#   - server
