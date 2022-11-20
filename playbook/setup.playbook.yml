@@ -27,23 +27,6 @@
         docker_compose_version: "v2.12.2"
 
   pre_tasks:
-    # BEGIN TEST TASKS
-    - name: Update apt cache.
-      apt: update_cache=yes cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-
-    - name: Wait for systemd to complete initialization.  # noqa 303
-      command: systemctl is-system-running
-      register: systemctl_status
-      until: >
-        'running' in systemctl_status.stdout or
-        'degraded' in systemctl_status.stdout
-      retries: 30
-      delay: 5
-      when: ansible_service_mgr == 'systemd'
-      changed_when: false
-      failed_when: systemctl_status.rc > 1
-    # END TEST TASKS
     - name: Execute prerequsites
       ansible.builtin.include_tasks: tasks/prerequisites.yml
     # - source parse-cli.sh

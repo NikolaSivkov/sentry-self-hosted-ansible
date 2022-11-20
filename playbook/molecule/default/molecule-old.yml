@@ -1,0 +1,50 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+platforms:
+  # - name: centos-8
+  #   #image: quay.io/centos/centos:stream8
+  #   image: centos:centos8
+  #   pre_build_image: true
+    # volumes:
+    #   - /var/run/docker/containerd/containerd.sock:/var/run/docker.sock,rw
+    # privileged: true
+    # group_add: 0
+  # - name: Ubuntu-18.04
+  #   image: ubuntu:18.04
+  #   pre_build_image: true
+  # - name: Ubuntu-20.04
+  #   image: ubuntu:20.04
+  #   pre_build_image: true
+  # - name: ubuntu-22.04
+  #   image: ubuntu:22.04
+  #   pre_build_image: true
+  #   privileged: true
+  #   capabilities:
+  #     - SYS_ADMIN
+  - name: Debian-11-bullseye-g
+    image: geerlingguy/docker-debian11-ansible:latest
+    pre_build_image: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+  - name: Debian-10-buster-g
+    image: geerlingguy/docker-debian10-ansible:latest
+    pre_build_image: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      # setting for the platform instance named 'instance'
+      ubuntu-22.04:
+        ansible_user: root
+verifier:
+  name: ansible
