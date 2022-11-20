@@ -1,0 +1,47 @@
+---
+- name: Test Sentry Setup
+  hosts: all
+  become: true
+  pre_tasks:
+    - name: Update apt cache.
+      apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+
+    - name: Wait for systemd to complete initialization.  # noqa 303
+      command: systemctl is-system-running
+      register: systemctl_status
+      until: >
+        'running' in systemctl_status.stdout or
+        'degraded' in systemctl_status.stdout
+      retries: 30
+      delay: 5
+      when: ansible_service_mgr == 'systemd'
+      changed_when: false
+      failed_when: systemctl_status.rc > 1
+
+    - name: Execute prerequsites
+      ansible.builtin.include_tasks: ../../tasks/prerequisites.yml
+
+    - name: Execute check-latest-commit
+      ansible.builtin.include_tasks: ../../tasks/check-latest-commit.yml
+  tasks:
+    - name: Test setup playbook
+      ansible.builtin.include_tasks: ../../setup.playbook.yml
+
+
+  vars_files:
+    - ../../default.yml
+  # roles:
+  #   - ""
+  handlers: []
+  roles:
+    - role: geerlingguy.pip
+      vars:
+        pip_install_packages:
+          - name: docker
+    - role: geerlingguy.docker
+      vars:
+        docker_compose_version: "v2.12.2"
+ 

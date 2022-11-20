@@ -1,0 +1,60 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: podman
+platforms:
+  # - name: centos-8
+  #   image: quay.io/centos/centos:stream8
+  #   pre_build_image: true
+  #   privileged: true
+  #   command: /sbin/init
+  #   tmpfs:
+  #     - /run
+  #     - /tmp
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  # - name: Ubuntu-18.04
+  #   image: ubuntu:18.04
+  #   pre_build_image: true
+  # - name: Ubuntu-20.04
+  #   image: ubuntu:20.04
+  #   pre_build_image: true
+  # - name: Ubuntu-22.04
+  #   image: ubuntu:22.04
+  #   pre_build_image: true
+  - name: debian-11-bullseye-g
+    image: geerlingguy/docker-debian11-ansible:latest
+    pre_build_image: true
+    privileged: true
+    systemd: true
+    # cgroup-parent: 'docker.slice'
+    # cgroupns: private
+    command: /sbin/init
+    # volumes:
+    #   - /sys/fs/cgroup:/sys/fs/cgroup
+    #   - /var/run/docker.sock:/var/run/docker.sock
+    tmpfs:
+      - /run
+      - /tmp
+  # - name: debian-10-buster-g
+  #   image: geerlingguy/docker-debian10-ansible:latest
+  #   pre_build_image: true
+  #   privileged: true
+  #   cgroup-parent: 'docker.slice'
+  #   cgroupns: private
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   command: /sbin/init
+  #   tmpfs:
+  #     - /run
+  #     - /tmp
+
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

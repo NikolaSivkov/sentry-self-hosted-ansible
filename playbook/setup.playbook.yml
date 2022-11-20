@@ -34,7 +34,13 @@
         update_cache: true
         cache_valid_time: 600
       when: ansible_os_family == 'Debian'
-
+    # - name: something something
+    #   ansible.builtin.command:
+    #     cmd: "loginctl enable-linger $USER"
+    # - name: Start login service
+    #   ansible.builtin.service:
+    #     name: logind
+    #     state: started
     - name: Execute prerequsites
       ansible.builtin.include_tasks: tasks/prerequisites.yml
     # - source parse-cli.sh

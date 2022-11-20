@@ -23,10 +23,30 @@ ansible-galaxy install -r requirements.yml --force
 ```sh
 python3 -m pip install molecule ansible-core
 python3 -m pip install --user "molecule[docker]"
+python3 -m pip install --user "molecule[podman]"
 ```
 
+### Add podman registry
+```
+[registries.search]
+registries = ['docker.io']
+```
 ### Initialize Docker containers for testing
 
 ```sh
 molecule create
+```
+
+### Test
+
+Default test ( runs in github actions)
+```sh
+cd playbook
+molecule test
+```
+
+Local tests using podman, because there's some issues with docker i can't seem to figure out
+```sh
+cd playbook
+molecule test --scenario-name local
 ```
