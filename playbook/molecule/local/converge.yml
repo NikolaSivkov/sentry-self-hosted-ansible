@@ -32,7 +32,7 @@
 
 
   vars_files:
-    - ../../default.yml
+    - ../../vars/default.yml
   # roles:
   #   - ""
   handlers: []
