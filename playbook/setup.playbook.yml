@@ -27,12 +27,14 @@
         docker_compose_version: "v2.12.2"
 
   pre_tasks:
+    # this is needed, otherwise you can't install gnupg2
+    # since it's not in the feed yet
     - name: Update apt cache.
       apt:
         update_cache: true
         cache_valid_time: 600
       when: ansible_os_family == 'Debian'
-      
+
     - name: Execute prerequsites
       ansible.builtin.include_tasks: tasks/prerequisites.yml
     # - source parse-cli.sh

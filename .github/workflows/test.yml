@@ -64,6 +64,7 @@ jobs:
 
       - name: Run Molecule tests.
         run: molecule test
+        working-directory: playbook
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
